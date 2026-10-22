@@ -1,2 +1,5 @@
 # rf-flooding-detector
 Detection of 2.4 GHz RF Flooding and Jamming Using an ESP32 and nRF24L01+
+The ESP32 configures the radio as a receiver with auto-acknowledgement and CRC disabled and a 1 Mbps data rate, then repeatedly sweeps all channels. Results are compared with a baseline learned at startup, and the outcome is reported on the serial monitor and the LED.
+At power-up the system performs five sweeps while the environment is in its normal state, with no flooding source present. The highest busy-channel count seen during these sweeps becomes the baseline. This lets the same code adapt to a quiet room or a Wi-Fi-heavy office without editing thresholds by hand.
+The serial monitor (115200 baud) shows one plain-language line per sweep, for example CLEAR: no devices detected, NORMAL: a few devices detected, WARNING: many devices detected, or ALARM: too many devices, possible jamming or flooding. A second line gives the average activity with a bar graph and the busy-channel count compared with the baseline. An optional 64-character map shows the activity on every channel.
